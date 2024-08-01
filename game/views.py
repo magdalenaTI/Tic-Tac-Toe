@@ -6,15 +6,6 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import sys
 
-emptyCell = ''
-maxScore = 10
-minScore = -10
-isPersonTurn = False
-computerSymbol = ''
-personSymbol = ''
-invalidPosition = -1
-
-# Create your views here.
 def index(request):
     if request.method == "GET":
         return render(request, "index.html")
