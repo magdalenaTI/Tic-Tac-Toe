@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .wrapper {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(160deg, #ff7e5f, #feb47b);
+        }
+
+        .wrapper .form {
+            width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrapper .form input {
+            margin: 10px 0;
+            padding: 12px 15px;
+            width: 100%;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: all .3s ease-in-out;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .wrapper .form input:focus {
+            border-color: #ff7e5f;
+            box-shadow: 0 0 5px rgba(255, 126, 95, 0.5);
+        }
+
+        .wrapper .form button {
+            margin-top: 15px;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 10px 0;
+            border: none;
+            cursor: pointer;
+            color: white;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: all .3s ease-in-out;
+            background: #ff7e5f;
+        }
+
+        .wrapper .form button:hover {
+            background: #feb47b;
+        }
+
+        .wrapper .form button:active {
+            transform: scale(0.95);
+        }
+
+        .message {
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .message.success {
+            color: #36ff00;
+        }
+
+        .message.error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <p{% if message.tags %} class="message {{ message.tags }}"{% endif %}>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form class="form" action="/" method="post">
+            {% csrf_token %}
+            <input type="number" name="room-id" id="room-id" placeholder="Enter Room Code (If You Have)">
+            <input type="text" name="player-name" id="player-name" placeholder="Enter Your Name">
+            <button id="actionBtn">Create New Room</button>
+        </form>
+    </div>
+
+    <script>
+        const roomNameInp = document.getElementById("room-id");
+        const actionBtn = document.getElementById("actionBtn");
+        roomNameInp.addEventListener('keyup', e => {
+            if (e.currentTarget.value == "") {
+                actionBtn.innerText = "Create New Room";
+            } else {
+                actionBtn.innerText = "Join";
+            }
+        });
+    </script>
+</body>
+
+</html>
